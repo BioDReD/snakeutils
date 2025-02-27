@@ -128,6 +128,8 @@ def create_report(bench_path, report_path, known_names=set(), x="s", y="max_pss"
             )
         )
 
+    return fig, df, stats
+
 def get_rule_names_from_log_file(logfile) : 
     logfile = Path(logfile)
     rules = set()
