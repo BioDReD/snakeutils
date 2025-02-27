@@ -1,6 +1,16 @@
 # snake-utils
 
-Utilities to analyse snakemake workflow past executions
+Utilities to analyse snakemake workflows past executions
+
+## Installation
+
+```sh
+python -m pip install git+ssh://git@github.com/BioDReD/snakeutils.git
+```
+
+Depends on : (installed automatically)
+- plotly >=6.0
+- pandas >=1.0
 
 ## snakebench
 
