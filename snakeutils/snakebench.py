@@ -16,6 +16,7 @@ TEMPLATE = """
         th { background-color: #e6f0ff; color: #003366; font-weight: bold;}
         tr:nth-child(even) {background-color: #f9f9f9;}
     </style>
+    <script src="https://cdn.plot.ly/plotly-3.0.0.min.js" charset="utf-8"></script>
 </head>
 <body>
     <h1>Benchmarks for a snakemake pipeline</h1>
