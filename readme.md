@@ -21,6 +21,8 @@ In it's simplest form, `snakebench.py` executes as follows :
 snakebench.py /path/to/workflow/results/benchmarks /path/to/report.html
 ```
 
+See an [example](./examples/bench_report.html)
+
 Defaults : 
 
 - if no `--log-file` is provided, rule names will be inferred to be the top dir/files in the benchmarks dir.
@@ -45,7 +47,6 @@ options:
   --size SIZE, -s SIZE  Column to use for the point size
   --sort-by SORT_BY     Column to use for sorting in the report
 ```
-
 
 
 ## TODO
