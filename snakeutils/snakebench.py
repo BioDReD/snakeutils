@@ -120,13 +120,14 @@ def create_report(bench_path, report_path, known_names=set(), x="s", y="max_pss"
         showlegend=False,
     )
 
-    with open(report_path, "w+") as fp : 
-        fp.write(
-            TEMPLATE.replace(
-                "PLACEHOLDER_FIG", fig.to_html(include_plotlyjs=True, full_html=False)).replace(
-                "PLACEHOLDER_TABLE", stats.sort_values(sort_by).to_html(index=None)
+    if report_path is not None :
+        with open(report_path, "w+") as fp : 
+            fp.write(
+                TEMPLATE.replace(
+                    "PLACEHOLDER_FIG", fig.to_html(include_plotlyjs=False, full_html=False)).replace(
+                    "PLACEHOLDER_TABLE", stats.sort_values(sort_by).to_html(index=None)
+                )
             )
-        )
 
     return fig, df, stats
 
