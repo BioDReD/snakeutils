@@ -14,5 +14,5 @@ setup(
     author="Luka PAVAGEAU",
     packages=["snakeutils"],
     scripts=["snakeutils/snakebench.py"],
-    install_requires=["pandas=1", "plotly=6"],
+    install_requires=["pandas>=1", "plotly>=6"],
 )
