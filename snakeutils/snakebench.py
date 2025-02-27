@@ -165,7 +165,7 @@ if __name__ == "__main__"  :
     if args.log_file is not None : 
         rule_names = get_rule_names_from_log_file(args.log_file)
     else :
-        rule_names = None
+        rule_names = set()
 
     create_report(args.bench, args.report, rule_names, x=args.x, y=args.y, size=args.size, sort_by=args.sort_by)
 
