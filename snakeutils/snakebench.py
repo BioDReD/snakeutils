@@ -70,9 +70,10 @@ def get_rule_name_from_file(f:Path, known_names=set(), parent=None) :
     return relative.parts[0], str(relative)
 
 
-def get_benchmarks(path:Path, known_names=set(), rules=[], _parent=None) :
+def get_benchmarks(path:Path, known_names=set(), rules=[], _parent=None) -> list[dict] :
     """
-    Given a path where snakemake benchmarks are stored, will recursively descend the directories and generate an easily parseable object.
+    Given a path where snakemake benchmarks are stored, will recursively descend the directories and returns a list of dicts 
+    where each entry is a job execution and keys are the vartious metrics of the finished job.
     """ 
     if _parent is None : 
         _parent = path
@@ -91,7 +92,10 @@ def get_benchmarks(path:Path, known_names=set(), rules=[], _parent=None) :
 
     return rules
 
-def create_report(bench_path, report_path, known_names=set(), x="s", y="max_pss", size="mean_load", sort_by="max_pss") : 
+def create_report(bench_path, report_path=None, known_names=set(), x="s", y="max_pss", size="mean_load", sort_by="max_pss") : 
+    """
+    Parse a benchmarks dir and returns a plotly figure, the full dataframe of all benchmarks and a summary dataframe.    
+    """
     print(f"Parsing benchmarks in {bench_path}...")
     benchs = Path(bench_path)
     benchs = get_benchmarks(benchs, known_names=known_names)
