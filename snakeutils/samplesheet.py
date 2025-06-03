@@ -47,6 +47,7 @@ class SampleSheet() :
         setattr(self, header, data)
     
     def __init__(self, path:Path) -> None:
+        path = Path(path)
         self.name = path.name
         self.header : dict = {}
         self.reads : list = None
