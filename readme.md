@@ -1,6 +1,6 @@
 # snake-utils
 
-Utilities to analyse snakemake workflows past executions
+Utilities for snakemake workflows 
 
 ## Installation
 
@@ -11,6 +11,17 @@ python -m pip install git+ssh://git@github.com/BioDReD/snakeutils.git
 Depends on : (installed automatically)
 - plotly >=6.0
 - pandas >=1.0
+
+## Useful functions and classes
+
+- `SampleSheet` : a simple class to load the data from a samplesheet that can be passed to `bcl2fastq`. Usage : 
+
+```py
+sheet = SampleSheet("/path/to/samplesheet.csv")
+fastqs_out = sheet.to_fastq()
+```
+
+- `params_to_CLI` : this function takes a dictionary of command line arguments and generates CLI args, with the common convention that single letter arguments are prefixed with a single dasg whereas multiletter arguments are prefixed with double dashes. 
 
 ## snakebench
 
