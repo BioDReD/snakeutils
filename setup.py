@@ -6,6 +6,7 @@ def get_version() :
         version = sp.check_output(["git", "describe"])
         return version.decode().strip().replace("-g", "+g")
     except sp.CalledProcessError : 
+        print("### COULD NOT FIND VERSION INFO ###")
         return "V0.1"
 
 setup(
