@@ -83,3 +83,13 @@ class SampleSheet() :
         sep = "\n        - "
         s += f"    - {len(self.samples)} samples : {sep + sep.join(self.samples)}"
         return s
+    
+    def to_fastq(self, prefix="") :
+        """Returns a list of paths corresponding to all expected fastqs. If a prefix is given, it is considered to be a folder that will be the destination of these fastqs."""
+        if self.samples is None :
+            raise Exception(f"No sample within samplesheet : {self}")
+
+        fq_list=  []
+        for read in ["R1", "R2"] :
+            fq_list += [f"{s}_S{i+1}_{read}_001.fastq.gz" for i, s in enumerate(self.samples)]
+        return [str(Path(prefix)/fq) for fq in fq_list]
