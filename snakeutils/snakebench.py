@@ -99,7 +99,7 @@ def get_benchmarks(path:Path, known_names=set(), rules=[], _parent=None) -> list
 
     return rules
 
-def create_report(bench_path, report_path=None, known_names=set(), x="s", y="max_pss", size="mean_load", sort_by="max_pss") : 
+def create_report(bench_path, report_path=None, df_path=None, known_names=set(), x="s", y="max_pss", size="mean_load", sort_by="max_pss") : 
     """
     Parse a benchmarks dir and returns a plotly figure, the full dataframe of all benchmarks and a summary dataframe.    
     """
@@ -139,6 +139,9 @@ def create_report(bench_path, report_path=None, known_names=set(), x="s", y="max
                     "PLACEHOLDER_TABLE", stats.sort_values(sort_by).to_html(index=None)
                 )
             )
+    
+    if df_path is not None : 
+        df.to_csv(df_path, index=None)
 
     return fig, df, stats
 
@@ -168,6 +171,7 @@ if __name__ == "__main__"  :
 
     parser.add_argument("bench", help="Path to the benchmarks directory")
     parser.add_argument("report", help="Path where the html report will be written")
+    parser.add_argument("full_stats", help="Path where the full statistics csv wll be written")
     parser.add_argument("--log-file", "-l", help="Optionally provide a path to a snakemake execution log, to infer correct rule names if the automatic detection fails")
     parser.add_argument("-x", help="Column to use for the x axis", default="s")
     parser.add_argument("-y", help="Column to use for the y axis", default="max_pss")
@@ -181,6 +185,6 @@ if __name__ == "__main__"  :
     else :
         rule_names = set()
 
-    create_report(args.bench, args.report, rule_names, x=args.x, y=args.y, size=args.size, sort_by=args.sort_by)
+    create_report(args.bench, args.report, args.full_stats, rule_names, x=args.x, y=args.y, size=args.size, sort_by=args.sort_by)
 
     print(f"Succesfully written report to {args.report}")
