@@ -43,9 +43,9 @@ def load_benchmark(f:Path) :
             return float(x)
 
     lines = [l.split("\t") for l in f.read_text().split("\n") if l]
-    if len(lines) != 2 :
-        raise ValueError(f"Unexpected number of lines in file {f} : {len(lines)} instead of 2")
-    
+    if "NA" in lines[1] : 
+        return {}
+
     return {key:types.get(key, try_float)(val) for key, val in zip(lines[0], lines[1])}
 
 def get_rule_name_from_file(f:Path, known_names=set(), parent=None) : 
@@ -89,10 +89,11 @@ def get_benchmarks(path:Path, known_names=set(), rules=[], _parent=None) -> list
             get_benchmarks(item, rules=rules, _parent=_parent)
         elif item.is_file() and item.name.endswith("tsv"): 
             bench = load_benchmark(item) 
-            rule, relative_path = get_rule_name_from_file(item, parent=_parent, known_names=known_names)
-            bench["relative_path"] = relative_path
-            bench["rule"] = rule.replace(".tsv", "")
-            rules.append(bench)
+            if bench :
+                rule, relative_path = get_rule_name_from_file(item, parent=_parent, known_names=known_names)
+                bench["relative_path"] = relative_path
+                bench["rule"] = rule.replace(".tsv", "")
+                rules.append(bench)
         else : 
             pass
 
