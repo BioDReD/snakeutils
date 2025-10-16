@@ -36,12 +36,17 @@ def load_benchmark(f:Path) :
         "h:m:s" : lambda s : time(*[int(x) for x in s.split(":")])
     }
 
+    def try_float(x) : 
+        if x == "NA" : 
+            return pd.NA
+        else : 
+            return float(x)
 
     lines = [l.split("\t") for l in f.read_text().split("\n") if l]
     if len(lines) != 2 :
         raise ValueError(f"Unexpected number of lines in file {f} : {len(lines)} instead of 2")
     
-    return {key:types.get(key, float)(val) for key, val in zip(lines[0], lines[1])}
+    return {key:types.get(key, try_float)(val) for key, val in zip(lines[0], lines[1])}
 
 def get_rule_name_from_file(f:Path, known_names=set(), parent=None) : 
     """
